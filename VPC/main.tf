@@ -104,3 +104,22 @@ resource "aws_route_table_association" "web_rt_association" {
   route_table_id = aws_route_table.upb_rt.id
   provider = aws.ses_aws
 }
+
+resource "aws_ssm_parameter" "subnets_id" {
+  for_each = {
+    "sn-web-A" = local.subnets.sn-web-A
+    "sn-web-B" = local.subnets.sn-web-B
+    "sn-web-C" = local.subnets.sn-web-C
+  }
+  name  = "/upb_vpc/subnets/${each.key}"
+  type  = "String"
+  value = aws_subnet.subnets["${each.key}"].id
+  provider = aws.ses_aws
+}
+
+resource "aws_ssm_parameter" "vpc_id" {
+  name  = "/vpc/id"
+  type  = "String"
+  value = aws_vpc.upb_vpc.id
+  provider = aws.ses_aws
+}
