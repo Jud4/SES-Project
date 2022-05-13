@@ -29,6 +29,7 @@ resource "aws_instance" "mail_instance" {
   subnet_id = data.aws_ssm_parameter.subnet_web_C_id.value
   associate_public_ip_address = true
   vpc_security_group_ids = [aws_security_group.mail_instance_sg.id]
+  iam_instance_profile = aws_iam_instance_profile.ec2_profile.name
   provider = aws.ses_aws
   
   tags = {
