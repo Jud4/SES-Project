@@ -1,6 +1,6 @@
-# module "iam_cred" { # OUT: user and pass
-#   source = "../IAM_credentials"
-# }
+module "iam_cred" { # OUT: user and pass
+  source = "../IAM_credentials"
+}
 
 module "ses" {
   source = "../SES"
@@ -13,6 +13,6 @@ module "ec2" {
   sender_mail = "${var.sender_mail}"
   Secondmail = "${var.Secondmail}"
   origin_domain = "${var.origin_domain}"
-#   smpt_user = "${module.iam_cred.smtp_username}"
-#   smtp_password = "${module.iam_cred.smtp_password}"
+  smpt_user = "${module.iam_cred.smtp_username}"
+  smtp_password = "${module.iam_cred.smtp_password}"
 }
